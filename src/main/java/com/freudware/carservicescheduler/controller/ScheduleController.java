@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RequestMapping("/api/schedule")
 public class ScheduleController {
 	private final static Logger LOGGER = Logger.getLogger(ScheduleController.class.getName());
