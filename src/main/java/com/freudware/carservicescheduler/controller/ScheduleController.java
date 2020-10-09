@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/carServiceScheduler/schedule")
+@RequestMapping("/api/schedule")
 public class ScheduleController {
 	private final static Logger LOGGER = Logger.getLogger(ScheduleController.class.getName());
 	
