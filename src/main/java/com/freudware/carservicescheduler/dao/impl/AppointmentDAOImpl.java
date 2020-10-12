@@ -26,7 +26,11 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 * @return JsonArray
 	 */
 	public JsonObject createAppointment(Appointments appointment)	{
-        appointmentRepository.insert(appointment);
+        try {
+            appointmentRepository.insert(appointment);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         return new JsonParser().parse(appointment.toString()).getAsJsonObject();
 	}
 
@@ -36,11 +40,15 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 */
     public JsonArray getAllAppointments() {
         JsonArray jsonArray = new JsonArray();
-        List<Appointments> appointments = appointmentRepository.findAll();
-        for(int i = 0; i < appointments.size(); i++)	{
-            Appointments appointment = appointments.get(i);
-            JsonElement jsonElement = new JsonParser().parse(appointment.toString());
-            jsonArray.add(jsonElement);
+        try {
+            List<Appointments> appointments = appointmentRepository.findAll();
+            for(int i = 0; i < appointments.size(); i++)	{
+                Appointments appointment = appointments.get(i);
+                JsonElement jsonElement = new JsonParser().parse(appointment.toString());
+                jsonArray.add(jsonElement);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return jsonArray;
     }
@@ -52,9 +60,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 */
     public JsonArray getAppointmentById(String id) {
         JsonArray jsonArray = new JsonArray();
-        List<Appointments> appointments = appointmentRepository.findByUserId(id);
-        for(Appointments appointment: appointments) {
-            jsonArray.add(new JsonParser().parse(appointment.toString()));
+        try {
+            List<Appointments> appointments = appointmentRepository.findByUserId(id);
+            for(Appointments appointment: appointments) {
+                jsonArray.add(new JsonParser().parse(appointment.toString()));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return jsonArray;
     }
@@ -66,9 +78,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 */
     public JsonArray getAppointmentByPersonFirstName(String firstName) {
         JsonArray jsonArray = new JsonArray();
-        List<Appointments> appointments = appointmentRepository.findByFirstName(firstName);
-        for(Appointments appointment: appointments) {
-            jsonArray.add(new JsonParser().parse(appointment.toString()));
+        try {
+            List<Appointments> appointments = appointmentRepository.findByFirstName(firstName);
+            for(Appointments appointment: appointments) {
+                jsonArray.add(new JsonParser().parse(appointment.toString()));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return jsonArray;
     }
@@ -80,9 +96,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 */
     public JsonArray getAppointmentByPersonLastName(String lastName) {
         JsonArray jsonArray = new JsonArray();
-        List<Appointments> appointments = appointmentRepository.findByLastName(lastName);
-        for(Appointments appointment: appointments) {
-            jsonArray.add(new JsonParser().parse(appointment.toString()));
+        try {
+            List<Appointments> appointments = appointmentRepository.findByLastName(lastName);
+            for(Appointments appointment: appointments) {
+                jsonArray.add(new JsonParser().parse(appointment.toString()));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return jsonArray;
     }
@@ -94,9 +114,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 */
     public JsonArray getAppointmentByTitle(String title) {
         JsonArray jsonArray = new JsonArray();
-        List<Appointments> appointments = appointmentRepository.findByTitle(title);
-        for(Appointments appointment: appointments) {
-            jsonArray.add(new JsonParser().parse(appointment.toString()));
+        try {
+            List<Appointments> appointments = appointmentRepository.findByTitle(title);
+            for(Appointments appointment: appointments) {
+                jsonArray.add(new JsonParser().parse(appointment.toString()));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return jsonArray;
     }
@@ -108,9 +132,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 */
     public JsonArray getAppointmentByStart(String start) {
         JsonArray jsonArray = new JsonArray();
-        List<Appointments> appointments = appointmentRepository.findByStart(start);
-        for(Appointments appointment: appointments) {
-            jsonArray.add(new JsonParser().parse(appointment.toString()));
+        try {
+            List<Appointments> appointments = appointmentRepository.findByStart(start);
+            for(Appointments appointment: appointments) {
+                jsonArray.add(new JsonParser().parse(appointment.toString()));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return jsonArray;
     }
@@ -122,9 +150,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 */
     public JsonArray getAppointmentByEnd(String end) {
         JsonArray jsonArray = new JsonArray();
-        List<Appointments> appointments = appointmentRepository.findByEnd(end);
-        for(Appointments appointment: appointments) {
-            jsonArray.add(new JsonParser().parse(appointment.toString()));
+        try {
+            List<Appointments> appointments = appointmentRepository.findByEnd(end);
+            for(Appointments appointment: appointments) {
+                jsonArray.add(new JsonParser().parse(appointment.toString()));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return jsonArray;
     }
@@ -136,9 +168,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 */
     public JsonArray getAppointmentBySeverity(int severity) {
         JsonArray jsonArray = new JsonArray();
-        List<Appointments> appointments = appointmentRepository.findBySeverity(severity);
-        for(Appointments appointment: appointments) {
-            jsonArray.add(new JsonParser().parse(appointment.toString()));
+        try {
+            List<Appointments> appointments = appointmentRepository.findBySeverity(severity);
+            for(Appointments appointment: appointments) {
+                jsonArray.add(new JsonParser().parse(appointment.toString()));
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return jsonArray;
     }
@@ -149,7 +185,11 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 * @return JsonObject
 	 */
     public JsonObject updateAppointment(Appointments appointment)	{
-        appointmentRepository.save(appointment);
+        try {
+            appointmentRepository.save(appointment);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         return new JsonParser().parse(appointment.toString()).getAsJsonObject();
 	}
 	
@@ -159,14 +199,17 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	 * @return JsonObject
 	 */
 	public JsonObject deleteAppointment(String id)	{
-        List<Appointments> appointments = appointmentRepository.findByUserId(id);
-        if(appointments.size() != 0) {
-            Appointments appointment = appointments.size() != 0 ? appointments.get(0) : new Appointments();
-            appointmentRepository.deleteById(appointments.get(0).getId());
-            return new JsonParser().parse(appointment.toString()).getAsJsonObject();
-        } else {
-            return new JsonParser().parse(Constants.EMPTY_JSON).getAsJsonObject();
+        try {
+            List<Appointments> appointments = appointmentRepository.findByUserId(id);
+            if(appointments.size() != 0) {
+                Appointments appointment = appointments.size() != 0 ? appointments.get(0) : new Appointments();
+                appointmentRepository.deleteById(appointments.get(0).getId());
+                return new JsonParser().parse(appointment.toString()).getAsJsonObject();
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
+        return new JsonParser().parse(Constants.EMPTY_JSON).getAsJsonObject();
 	}
 	
 	/**
@@ -179,14 +222,14 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 		try	{
 			JsonArray appointments = getAllAppointments();
 			for(JsonElement jsonElement: appointments)	{
-				JsonObject mLabJsonObject = jsonElement.getAsJsonObject();
+				JsonObject jsonObject = jsonElement.getAsJsonObject();
 				JsonObject fullCalendarJsonObject = new JsonObject();
-				for(String key: mLabJsonObject.keySet())	{
+				for(String key: jsonObject.keySet())	{
 					switch(key)	{
 						case Constants.start:
 						case Constants.end:
 						case Constants.title:
-							String value = mLabJsonObject.get(key).getAsString();
+							String value = jsonObject.get(key).getAsString();
 							fullCalendarJsonObject.addProperty(key, value);
 					}
 				}
