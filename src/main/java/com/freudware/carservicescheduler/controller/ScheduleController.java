@@ -3,7 +3,6 @@ package com.freudware.carservicescheduler.controller;
 import java.util.logging.Logger;
 
 import com.freudware.carservicescheduler.constants.Constants;
-import com.freudware.carservicescheduler.constants.JspConstants;
 import com.freudware.carservicescheduler.factory.AppointmentFactory;
 import com.freudware.carservicescheduler.model.Appointments;
 import com.freudware.carservicescheduler.service.ScheduleService;
@@ -15,15 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@CrossOrigin
 @RequestMapping("/api/schedule")
 public class ScheduleController {
 	private final static Logger LOGGER = Logger.getLogger(ScheduleController.class.getName());
@@ -35,19 +31,8 @@ public class ScheduleController {
 	private AppointmentValidator appointmentValidator;
 	
 	@Autowired
-	private AppointmentFactory appointmentFactory;
-
-	/**
-	 * Entry point for home page
-	 * @return ModelAndView
-	 */
-	@RequestMapping("")
-	public ModelAndView scheduleHomeFromNavbar()	{
-		ModelAndView returnValue = new ModelAndView(JspConstants.SCHEDULE);
-		LOGGER.info("Going to schedule home page");
-		return returnValue;
-	}
-	
+    private AppointmentFactory appointmentFactory;
+    
 	/**
 	 * API call for get all fullCalendarJs appointments
 	 * Method is used exclusively for fullCalendarJs calendar on home page
@@ -151,6 +136,7 @@ public class ScheduleController {
 	 */
 	@RequestMapping(value="/scheduleAppointment", method=RequestMethod.POST, produces="application/json")
 	public ResponseEntity<String> scheduleAppointment(@RequestBody String json)	{
+        LOGGER.info("Scheduling appointment");
 		Appointments Appointment = appointmentFactory.createAppointmentForPost(json);
 		if(appointmentValidator.isValidAppointment(Appointment))	{
 			JsonObject jsonObject = scheduleService.createAppointment(Appointment);
