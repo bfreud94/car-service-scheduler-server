@@ -44,7 +44,7 @@ public class ScheduleController {
 	public ResponseEntity<String> populateFullCalendarJsRequest()	{
 		LOGGER.info("Getting data to be filled into fullCalendarJS request");
 		JsonArray json = scheduleService.getFullCalendarJSON();
-		return ResponseEntity.status(HttpStatus.CREATED).body(json.toString());
+		return ResponseEntity.status(HttpStatus.OK).body(json.toString());
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class ScheduleController {
 	public ResponseEntity<String> getAppointmentByFirstName(@PathVariable String firstName)	{
 		LOGGER.info("Getting all appointments by first name");
 		JsonArray json = scheduleService.getAppointmentByPersonFirstName(firstName);
-		return ResponseEntity.status(HttpStatus.CREATED).body(json.toString());
+		return ResponseEntity.status(HttpStatus.OK).body(json.toString());
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class ScheduleController {
 	public ResponseEntity<String> getAppointmentByLastName(@PathVariable String lastName)	{
 		LOGGER.info("Getting all appointments by last name");
 		JsonArray json = scheduleService.getAppointmentByPersonLastName(lastName);
-		return ResponseEntity.status(HttpStatus.CREATED).body(json.toString());
+		return ResponseEntity.status(HttpStatus.OK).body(json.toString());
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class ScheduleController {
 	public ResponseEntity<String> getAppointmentByTitle(@PathVariable String title)	{
 		LOGGER.info("Getting all appointments by title");
 		JsonArray json = scheduleService.getAppointmentByTitle(title);
-		return ResponseEntity.status(HttpStatus.CREATED).body(json.toString());
+		return ResponseEntity.status(HttpStatus.OK).body(json.toString());
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class ScheduleController {
 	public ResponseEntity<String> getAppointmentByStart(@PathVariable String start)	{
 		LOGGER.info("Getting all appointments by start");
 		JsonArray json = scheduleService.getAppointmentByStart(start);
-		return ResponseEntity.status(HttpStatus.CREATED).body(json.toString());
+		return ResponseEntity.status(HttpStatus.OK).body(json.toString());
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class ScheduleController {
 	public ResponseEntity<String> getAppointmentByEnd(@PathVariable String end)	{
 		LOGGER.info("Getting all appointments by end");
 		JsonArray json = scheduleService.getAppointmentByEnd(end);
-		return ResponseEntity.status(HttpStatus.CREATED).body(json.toString());
+		return ResponseEntity.status(HttpStatus.OK).body(json.toString());
 	}
 	
 	/**
@@ -116,7 +116,7 @@ public class ScheduleController {
 	public ResponseEntity<String> getAppointmentBySeverity(@PathVariable int severity)	{
 		LOGGER.info("Getting all appointments by severity");
 		JsonArray json = scheduleService.getAppointmentBySeverity(severity);
-		return ResponseEntity.status(HttpStatus.CREATED).body(json.toString());
+		return ResponseEntity.status(HttpStatus.OK).body(json.toString());
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class ScheduleController {
 	public ResponseEntity<String> getAppointmentById(@PathVariable String id)	{
 		LOGGER.info("Getting all appointments by id");
 		JsonArray json = scheduleService.getAppointmentById(id);
-		return ResponseEntity.status(HttpStatus.CREATED).body(json.toString());
+		return ResponseEntity.status(HttpStatus.OK).body(json.toString());
 	}
 	
 	/**
@@ -143,7 +143,7 @@ public class ScheduleController {
 		if(appointmentValidator.isValidAppointment(Appointment))	{
             JsonObject jsonObject = scheduleService.createAppointment(Appointment);
             jsonObject.addProperty("created", true);
-			return ResponseEntity.status(HttpStatus.CREATED).body(jsonObject.toString());
+			return ResponseEntity.status(HttpStatus.OK).body(jsonObject.toString());
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.INVALID_FIELD);
 		}
